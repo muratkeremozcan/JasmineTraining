@@ -18,5 +18,7 @@
   "files.exclude": {
     "app/**/*.js": true,
     "test/**/*.js": true
-  }
+  },
+  "files.autoSave": true,
+  "editor.fontSize": 14
 }
