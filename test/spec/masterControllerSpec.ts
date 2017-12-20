@@ -1,7 +1,5 @@
 import vdog = dogsrus.virtdog;
 
-
-
 describe('In the file masterController.ts', () => {
     // tslint:disable-next-line:no-empty
     describe('the masterController\'s ', () => {
