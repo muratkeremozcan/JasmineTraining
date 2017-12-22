@@ -71,17 +71,61 @@ describe('In the file masterController.ts', () => {
                 });
         });
         // tslint:disable-next-line:no-empty
-        describe('throwSomething method', () => {
-                it('should broadcast the throw event name', () => {
-                        pending('finish in mocking module'); // placeholder telling us that there is a test to run here later
+        describe('broadcast related property', () => {
+                let broadcastObject: vdog.DogObject;
+                beforeEach( () => {
+                        broadcastObject = new vdog.DogObject('meh', false, false);
+                        spyOn($rootScope, '$broadcast');
+                });
+                describe('throwSomething', () => {
+                        it('should broadcast the throw event name and the object thrown', () => {
+                                sut.throwSomething(broadcastObject);
+                                expect($rootScope.$broadcast).toHaveBeenCalledWith(vdog.eventNames.masterThrow, broadcastObject);
+                                // pending('finish in mocking module'); // placeholder telling us that there is a test to run here later
+                        });
+                });
+                // tslint:disable-next-line:no-empty
+                describe('feedTheDog', () => {
+                        it('should broadcast the feed event name and the object thrown', () => {
+                                // pending('finish in mocking module'); // placeholder telling us that there is a test to run here later
+                                sut.feedTheDog(broadcastObject);
+                                expect($rootScope.$broadcast).toHaveBeenCalledWith(vdog.eventNames.masterFeed, broadcastObject);
+                        });
                 });
         });
-        // tslint:disable-next-line:no-empty
-        describe('feedTheDog method', () => {
-                it('should broadcast the feed event name', () => {
-                        pending('finish in mocking module'); // placeholder telling us that there is a test to run here later
+        /* // testing that the above mocck is isolating the call
+        describe('feedTheDog, when $broadcast is being spied on', () => {
+                let foodObject: vdog.DogObject;        // variables to use in our test
+                let wasBroadcast: boolean;             // boolean to test whether we broadcast the event
+                beforeEach( () => {
+                        foodObject = new vdog.DogObject('meh', false, false); // before each test, set the foodObject to a new DogObject
+                        wasBroadcast = false; // and set wasBroadcast to false;
+                        spyOn($rootScope, '$broadcast'); // spy on $broadcast
+                        // tslint:disable-next-line:max-line-length
+                        $rootScope.$on(vdog.eventNames.masterFeed, (event, args) => wasBroadcast = true); // setup a listener for the masterFeed event , to set the value of wasBroadcast
+                });
+                describe('and there is no callThrough', () => {// describe for the no callThrough condition
+                        it ('should not broadcast', () => { //  test for not broadcasting
+                        sut.feedTheDog(foodObject);  // feed the dog
+                        // tslint:disable-next-line:max-line-length
+                        expect($rootScope.$broadcast).toHaveBeenCalled();  // expect broadcast to have been called, our spy detected the call
+                        // tslint:disable-next-line:no-unused-expression
+                        expect(wasBroadcast).toBeFalsy; // making sure wasBroadcast is false
+                        });
+                });
+                // to prove broadcast is workingg at all
+                describe('and there is a callThrough', () => {   // test if we get a broadcast when we set the broadcast with a callThrough
+                        it('should broadcast', () => {  // adding a callThrough to the spy
+                        // tslint:disable-next-line:max-line-length
+                        (<jasmine.Spy>($rootScope.$broadcast)).and.callThrough();       // typscript typecasting: since the static environment can't tell if $rootScope.$broadcast is being spied on, we cast it to a Jasmine spy
+                        sut.feedTheDog(foodObject);        // feed the dog
+                        expect($rootScope.$broadcast).toHaveBeenCalled();        // check that broadcast was called
+                        // tslint:disable-next-line:no-unused-expression
+                        expect(wasBroadcast).toBeTruthy;        // and see if the broadcast was passed through
+                        });
                 });
         });
+        */
       });
       // tslint:disable-next-line:no-empty
     describe('the MasterAction\'s constructor', () => {
