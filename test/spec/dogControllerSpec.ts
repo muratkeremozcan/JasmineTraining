@@ -194,6 +194,7 @@ namespace dogsrus.virtdogtest {
         });
       });
       describe('masterThrow event listener', () => {
+<<<<<<< HEAD
         let throwObject: vdog.DogObject; // variable for throw object
         beforeEach(() => {
           throwObject = jasmine.createSpyObj('throwObject', ['chewOn']);  // instantiate throw object
@@ -211,6 +212,25 @@ namespace dogsrus.virtdogtest {
         it('should blog thrown object name', () => {
           $rootScope.$broadcast(eventNamesTest.masterThrow, throwObject);
           expect(sut.blogContent).toContain(throwObject.name); // blogContent should contain throwObject.name
+=======
+        let throwObject: vdog.DogObject;
+        beforeEach(() => {
+          throwObject = jasmine.createSpyObj('throwObject', ['chewOn']);
+          throwObject.name = 'meh';
+          throwObject.flies = false;
+          throwObject.chewy = false;
+          (<jasmine.Spy>(throwObject.chewOn)).and.returnValue(
+            vdog.ChewExperience.fair);
+          sut.blogContent = '';
+        });
+        it('should blog master', () => {
+          $rootScope.$broadcast(eventNamesTest.masterThrow, throwObject);
+          expect(sut.blogContent).toContain('master');
+        });
+        it('should blog thrown object name', () => {
+          $rootScope.$broadcast(eventNamesTest.masterThrow, throwObject);
+          expect(sut.blogContent).toContain(throwObject.name);
+>>>>>>> temp
         });
         it('when thrown object does not fly should blog snapping', () => {
           $rootScope.$broadcast(eventNamesTest.masterThrow, throwObject);
@@ -230,7 +250,11 @@ namespace dogsrus.virtdogtest {
           });
         describe('when thrown object chewOn returns squeaky', () => {
           beforeEach(() => {
+<<<<<<< HEAD
             (<jasmine.Spy>(throwObject.chewOn)).and.returnValue(  // change the return value: what our spy returns when chewOn is called
+=======
+            (<jasmine.Spy>(throwObject.chewOn)).and.returnValue(
+>>>>>>> temp
               vdog.ChewExperience.squeaky);
           });
           it('should blog squeak', () => {
@@ -240,13 +264,21 @@ namespace dogsrus.virtdogtest {
           it('should call chewOn squeakyOcdChewCount+1 times', () => {
             sut.squeakyOcdChewCount = 5;
             $rootScope.$broadcast(eventNamesTest.masterThrow, throwObject);
+<<<<<<< HEAD
             // testing the spy. Any time expectation doesn't test SUT, it should test a mock
             expect(throwObject.chewOn).toHaveBeenCalledTimes( // testing how many times our mock is called
+=======
+            expect(throwObject.chewOn).toHaveBeenCalledTimes(
+>>>>>>> temp
               sut.squeakyOcdChewCount + 1);
           });
           it('then chewOn stops returning squeaky should blog \'try again\'',
             () => {
+<<<<<<< HEAD
               (<jasmine.Spy>(throwObject.chewOn)).and.returnValues( // change return values
+=======
+              (<jasmine.Spy>(throwObject.chewOn)).and.returnValues(
+>>>>>>> temp
                 vdog.ChewExperience.squeaky,
                 vdog.ChewExperience.great
               );
