@@ -56,12 +56,26 @@ namespace dogsrus.virtdog {
 
     // --------------------- private stuff down here -------------------------------
     private initializeDog(dogToCopy: IDog) {
-      // todo: not all dog props are being transfered
-      this.familiarName = dogToCopy.familiarName;
-      this.barkSound = dogToCopy.barkSound;
       this.age = dogToCopy.age;
-      this.startupBlog = dogToCopy.startupBlog;
+      this.barkSound = dogToCopy.barkSound;
+      this.breed = dogToCopy.breed;
       this.chewUrgeInterval = dogToCopy.chewUrgeInterval;
+      this.coatStyle = dogToCopy.coatStyle;
+      this.defaultAction = dogToCopy.defaultAction;
+      this.dogLonelyDuration = dogToCopy.dogLonelyDuration;
+      this.dogLonelyEndurance = dogToCopy.dogLonelyEndurance;
+      this.dogSleepDuration = dogToCopy.dogSleepDuration;
+      this.dogTiredInterval = dogToCopy.dogTiredInterval;
+      this.earState = dogToCopy.earState;
+      this.earStyle = dogToCopy.earStyle;
+      this.familiarName = dogToCopy.familiarName;
+      this.motherNature1Interval = dogToCopy.motherNature1Interval;
+      this.motherNature2Interval = dogToCopy.motherNature2Interval;
+      this.speciesName = dogToCopy.speciesName;
+      this.squeakyOcdChewCount = dogToCopy.squeakyOcdChewCount;
+      this.startupBlog = dogToCopy.startupBlog;
+      this.tailState = dogToCopy.tailState;
+      this.tailStyle = dogToCopy.tailStyle;
     }
 
     private initializeEvents() {
@@ -174,11 +188,12 @@ namespace dogsrus.virtdog {
         'Ok this is way too much fun!!!';
       for (let i = 0; i < this.squeakyOcdChewCount; i++) {
         if (chewObject.chewOn() === ChewExperience.squeaky) {
-          blogEntry += ' Chomp, SQEAK!';
+          blogEntry += ' Chomp, SQUEAK!';
         } else {
           blogEntry += ' Chomp... Hey it stopped squeaking, let me try again!';
         }
       }
+      return blogEntry;
     }
 
     private decapitateHandler = (event: ng.IAngularEvent) => {
@@ -214,7 +229,7 @@ namespace dogsrus.virtdog {
       let blogEntry = `My master just threw a ${fetchObject.name}. ` +
         `I ran like mad to grab the ${fetchObject.name}`;
       if (fetchObject.flies) {
-        blogEntry += ' and leapt like Air Jordan, snatching in mid flight!';
+        blogEntry += ' and leapt like Air Jordan, snatching it in mid flight!';
       } else {
         blogEntry += ' snapping it up far sooner than imaginable!';
       }
@@ -225,7 +240,7 @@ namespace dogsrus.virtdog {
         this.chewObjects.push(fetchObject);
       }
       if (fetchObject.chewOn() === ChewExperience.squeaky) {
-        this.chewOnSomethingSqueaky(blogEntry, fetchObject);
+        blogEntry += this.chewOnSomethingSqueaky(blogEntry, fetchObject);
       } else {
         blogEntry += ` I gave the ${fetchObject.name} a good chew or two and dropped it.`;
       }
